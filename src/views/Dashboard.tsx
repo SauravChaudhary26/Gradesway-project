@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import CreateQuizDialog from "@/components/CreateQuizDialog";
 import EditQuizDialog from "@/components/EditQuizDialog"; // Import Edit Dialog
 
-const url = import.meta.env.VITE_SERVER_URL + "api/quiz";
+const url = "https://gradesway-project.onrender.com/api/quiz"; // Backend URL
 
 const Dashboard = () => {
    const [quizes, setQuizes] = useState<
