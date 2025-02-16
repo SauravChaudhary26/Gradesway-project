@@ -87,6 +87,8 @@ http://localhost:5173
 
 ### 🔹 **Quiz Endpoints**
 
+You have to be logged in to use these apis.
+
 | Method   | Endpoint        | Description       |
 | -------- | --------------- | ----------------- |
 | `GET`    | `/api/quiz`     | Fetch all quizzes |

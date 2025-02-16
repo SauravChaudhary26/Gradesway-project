@@ -1,6 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
 
 import quizRoutes from "./routes/quizRoutes";
 import authRoutes from "./routes/authRoutes";
@@ -13,6 +15,8 @@ app.use(bodyParser.json());
 app.use("/login", authRoutes);
 app.use("/api", quizRoutes);
 
-app.listen(8080, () => {
-   console.log("Server is running on port 8080");
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => {
+   console.log(`Server is running on port ${PORT}`);
 });

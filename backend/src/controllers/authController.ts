@@ -26,7 +26,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
       //if the user does not exist, create a new user
       if (!user) {
-         const data = InsertQuery(
+         const data = await InsertQuery(
             `INSERT INTO teachers (username, password) VALUES ('${username}', '${password}');`
          );
       }

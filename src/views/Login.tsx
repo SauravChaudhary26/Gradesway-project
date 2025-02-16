@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const FormSchema = z.object({
    username: z.string().min(5, {
@@ -36,8 +37,10 @@ export function Login() {
    });
 
    const navigate = useNavigate();
+   const [loading, setLoading] = useState(false); // Add loading state
 
    const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+      setLoading(true); // Start loading
       try {
          const url = "http://localhost:8080/login";
          const response = await axios.post(url, data);
@@ -50,7 +53,9 @@ export function Login() {
             return;
          }
       } catch (error) {
-         console.error("Error while loggin in", error);
+         console.error("Error while logging in", error);
+      } finally {
+         setLoading(false); // Stop loading after request completes
       }
    };
 
@@ -106,8 +111,8 @@ export function Login() {
                      )}
                   />
 
-                  <Button type="submit" className="w-full">
-                     Submit
+                  <Button type="submit" className="w-full" disabled={loading}>
+                     {loading ? "Loading..." : "Submit"}
                   </Button>
                </form>
             </Form>
