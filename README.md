@@ -1,3 +1,7 @@
+### Live link [https://gradesway-saurav.netlify.app/](https://gradesway-saurav.netlify.app/)
+
+### Live Demo [https://drive.google.com/file/d/1Y6e6oJ6QWOmn8Rf5JvtGCjc9wITeVB_Z/view?usp=sharing](https://drive.google.com/file/d/1Y6e6oJ6QWOmn8Rf5JvtGCjc9wITeVB_Z/view?usp=sharing)
+
 # Gradesway (demo) - Quiz Management System
 
 Gradesway(demo) is a **quiz management system** built using the **MERN stack** ( Express, React, Node.js) with MySQL for database operations. It allows teachers to create, edit, and delete quizzes efficiently.
