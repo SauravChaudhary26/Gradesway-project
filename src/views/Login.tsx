@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -42,7 +41,7 @@ export function Login() {
    const onSubmit = async (data: z.infer<typeof FormSchema>) => {
       setLoading(true); // Start loading
       try {
-         const url = "http://localhost:8080/login";
+         const url = import.meta.env.VITE_SERVER_URL + "login";
          const response = await axios.post(url, data);
 
          if (response.status === 201) {
