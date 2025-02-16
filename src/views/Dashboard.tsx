@@ -4,56 +4,98 @@ import {
    Card,
    CardHeader,
    CardTitle,
-   CardDescription,
    CardContent,
    CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import CreateQuizDialog from "@/components/CreateQuizDialog";
+
+const url = "http://localhost:8080/api/quiz";
 
 const Dashboard = () => {
-   const url = "http://localhost:8080/api/quizes";
-   const [quizes, setQuizes] = useState<number[]>([]);
+   const [quizes, setQuizes] = useState<
+      {
+         id: number;
+         title: string;
+         description: string;
+         teacher_id: number;
+         date_created: string;
+      }[]
+   >([]);
+
+   const fetchData = async () => {
+      try {
+         const teacher_id = localStorage.getItem("teacher_id");
+         const response = await axios.get(url, { params: { teacher_id } });
+         console.log(response.data);
+
+         // Convert `date_created` to a readable format
+         const formattedData = response.data.map((quiz: any) => ({
+            ...quiz,
+            date_created: new Intl.DateTimeFormat("en-US", {
+               year: "numeric",
+               month: "long",
+               day: "2-digit",
+               hour: "2-digit",
+               minute: "2-digit",
+            }).format(new Date(quiz.date_created)),
+         }));
+
+         setQuizes(formattedData);
+      } catch (error) {
+         console.error("Error fetching data:", error);
+      }
+   };
 
    useEffect(() => {
-      const fetchData = async () => {
-         try {
-            const response = await axios.get(url);
-            console.log(response.data);
-            // setQuizes(response.data);
-         } catch (error) {
-            console.error("Error fetching data:", error);
-         }
-      };
-
-      // Uncomment when your API is ready
-      //   fetchData();
-
-      // For now, set dummy data
-      setQuizes([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+      fetchData();
    }, []);
+
+   const handleDelete = async (id: number) => {
+      try {
+         await axios.delete(url, { data: { id } });
+         setQuizes(quizes.filter((quiz) => quiz.id !== id));
+      } catch (error) {
+         console.error("Error deleting quiz:", error);
+      }
+   };
+
+   // Function to update state when a new quiz is created
+   const handleQuizCreated = (newQuiz: any) => {
+      setQuizes([...quizes, newQuiz]);
+   };
 
    return (
       <div className="p-4 relative">
+         <h1 className="text-4xl font-bold mb-9 text-center">
+            Hi Devil_knight
+         </h1>
+
          {/* Responsive grid layout */}
          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {quizes.map((card, idx) => (
                <Card
                   key={idx}
-                  className="transition-transform transform hover:scale-105 hover:shadow-xl"
+                  className="transition-transform transform hover:scale-105 hover:shadow-xl border border-white"
                >
                   <CardHeader>
-                     <CardTitle>Title {card}</CardTitle>
-                     <CardDescription>Description {card}</CardDescription>
+                     <CardTitle>{card.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                     <p>Content for quiz {card}</p>
+                     <p>{card.description}</p>
+                     <p className="text-gray-500 text-sm mt-8">
+                        📅 Created at: {card.date_created}
+                     </p>
                   </CardContent>
                   <CardFooter className="flex justify-end space-x-2">
                      <Button variant="outline" size="sm">
                         Edit
                      </Button>
-                     <Button variant="destructive" size="sm">
+                     <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => handleDelete(card.id)}
+                     >
                         Delete
                      </Button>
                   </CardFooter>
@@ -61,13 +103,11 @@ const Dashboard = () => {
             ))}
          </div>
 
-         {/* Fixed "Add" button in the bottom right */}
-         <Button
-            variant="default"
-            className="fixed bottom-10 right-9 rounded-full p-8 shadow-lg hover:shadow-2xl"
-         >
-            <Plus className="h-20 w-20" />
-         </Button>
+         {/* "Create New Quiz" Dialog Component */}
+         <CreateQuizDialog
+            onQuizCreated={handleQuizCreated}
+            fetchData={fetchData}
+         />
       </div>
    );
 };

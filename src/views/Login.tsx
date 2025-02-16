@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import axios from "axios";
 import { Button } from "@/components/ui/button";
 import {
    Form,
@@ -14,6 +15,7 @@ import {
    FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useNavigate } from "react-router-dom";
 
 const FormSchema = z.object({
    username: z.string().min(5, {
@@ -33,8 +35,23 @@ export function Login() {
       },
    });
 
-   const onSubmit = (data: z.infer<typeof FormSchema>) => {
-      console.log("Form Submitted:", data);
+   const navigate = useNavigate();
+
+   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+      try {
+         const url = "http://localhost:8080/login";
+         const response = await axios.post(url, data);
+
+         if (response.status === 201) {
+            console.log("User created successfully");
+            localStorage.setItem("username", response.data.username);
+            localStorage.setItem("teacher_id", response.data.id);
+            navigate("/dashboard");
+            return;
+         }
+      } catch (error) {
+         console.error("Error while loggin in", error);
+      }
    };
 
    return (

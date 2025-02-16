@@ -31,8 +31,12 @@ export const login = async (req: Request, res: Response): Promise<void> => {
          );
       }
 
+      const [userCache] = await SelectQuery<Teacher>(
+         `SELECT * FROM teachers WHERE username = '${username}'`
+      );
+
       //send a success response
-      res.status(201).json("User created successfully.");
+      res.status(201).json({ id: userCache.id, username: userCache.username });
    } catch (error) {
       console.log("Error while Loggin in", error);
       res.status(500).json({ error: "Something went wrong." });
