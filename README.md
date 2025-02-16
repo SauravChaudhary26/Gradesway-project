@@ -1,50 +1,114 @@
-# React + TypeScript + Vite
+# Gradesway (demo) - Quiz Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Gradesway(demo) is a **quiz management system** built using the **MERN stack** ( Express, React, Node.js) with MySQL for database operations. It allows teachers to create, edit, and delete quizzes efficiently.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-  **User Authentication**: Supports login/logout functionality with localStorage.
+-  **Create Quizzes**: Teachers can create new quizzes with a title and description.
+-  **Edit Quizzes**: Update quiz details through a ShadCN-based dialog.
+-  **Delete Quizzes**: Remove quizzes with a confirmation prompt.
+-  **Dashboard View**: Displays all created quizzes in a responsive grid layout.
+-  **Dynamic UI Updates**: Fetches updated quiz data after every CRUD operation.
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+-  **Frontend**: React (TypeScript) with ShadCN UI components
+-  **Backend**: Node.js + Express + TypeScript
+-  **Database**: MySQL
+-  **API Requests**: Axios
+-  **State Management**: React Hooks
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 📌 Setup Instructions
+
+### 1️⃣ Clone the Repository
+
+```sh
+git clone https://github.com/SauravChaudhary26/Gradesway-project
+cd Gradesway-project
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 2️⃣ Install Dependencies
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+#### **Frontend**
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```sh
+npm install
 ```
+
+#### **Backend**
+
+```sh
+cd ../backend
+npm install
+```
+
+### 3️⃣ Configure the Environment
+
+Create a **.env** file in the backend directory with the following details:
+
+```env
+PORT=8080
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=yourpassword
+DB_NAME=aurasphere
+```
+
+### 4️⃣ Start the Project
+
+#### **Start the Backend**
+
+```sh
+cd backend
+npm start
+```
+
+#### **Start the Frontend**
+
+```sh
+cd ..
+npm run dev
+```
+
+### 5️⃣ Open in Browser
+
+Navigate to:
+
+```
+http://localhost:5173
+```
+
+---
+
+## 📜 API Endpoints
+
+### 🔹 **Quiz Endpoints**
+
+| Method   | Endpoint        | Description       |
+| -------- | --------------- | ----------------- |
+| `GET`    | `/api/quiz`     | Fetch all quizzes |
+| `POST`   | `/api/quiz`     | Create a new quiz |
+| `PUT`    | `/api/quiz/:id` | Update a quiz     |
+| `DELETE` | `/api/quiz/`    | Delete a quiz     |
+
+---
+
+## 📌 Contribution
+
+Feel free to contribute to the project!
+
+1. Fork the repository.
+2. Create a new branch (`feature-branch`).
+3. Commit your changes.
+4. Push to your branch and create a PR.
+
+---
+
+## 📞 Contact
+
+For any issues or feature requests, please open an **issue** on GitHub or contact **sauravchaudhary2609@gmail.com** or ping me at [LinkedIn](https://www.linkedin.com/in/sauravchaudhary26/).
+
+🚀 Happy Coding!

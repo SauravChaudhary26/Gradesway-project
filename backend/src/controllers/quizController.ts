@@ -18,6 +18,11 @@ export const getAllQuizzes = async (req: Request, res: Response) => {
    try {
       const { teacher_id } = req.query;
 
+      if (!teacher_id) {
+         res.status(404).json({ message: "Not Authorized" });
+         return;
+      }
+
       const quizzes = await SelectQuery<Quiz>(
          `SELECT * FROM quizzes WHERE teacher_id = ${teacher_id}`
       );
