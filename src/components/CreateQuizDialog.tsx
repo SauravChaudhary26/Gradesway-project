@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
-const url = "http://localhost:8080/api/quiz";
+const url = "https://gradesway-project.onrender.com/api/quiz";
 
 interface CreateQuizDialogProps {
    onQuizCreated: (newQuiz: any) => void; // Function to update the Dashboard state

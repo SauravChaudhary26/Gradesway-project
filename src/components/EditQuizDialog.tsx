@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-const url = "http://localhost:8080/api/quiz";
+const url = "https://gradesway-project.onrender.com/api/quiz";
 
 interface EditQuizDialogProps {
    quiz: {
