@@ -16,8 +16,11 @@ interface Quiz extends RowDataPacket {
 
 export const getAllQuizzes = async (req: Request, res: Response) => {
    try {
-      console.log(req.params);
-      const quizzes = await SelectQuery<Quiz>("SELECT * FROM quizzes");
+      const { teacher_id } = req.query;
+
+      const quizzes = await SelectQuery<Quiz>(
+         `SELECT * FROM quizzes WHERE teacher_id = ${teacher_id}`
+      );
       res.json(quizzes);
    } catch (error) {
       console.log("Error while fetching quizzes", error);
@@ -37,8 +40,10 @@ export const insertQuiz = async (req: Request, res: Response) => {
          res.status(404).json({ message: "Not Authorized" });
       }
 
-      const data = await InsertQuery(
-         `INSERT INTO quizzes (title, description, teacher_id) VALUES ('${title}', '${description}', '${teacher_id}');`
+      const escapedTitle = title.replace(/'/g, "''");
+      const escapedDescription = description.replace(/'/g, "''");
+      await InsertQuery(
+         `INSERT INTO quizzes (title, description, teacher_id) VALUES ('${escapedTitle}', '${escapedDescription}', '${teacher_id}');`
       );
 
       res.status(201).json("Quiz created successfully.");
@@ -50,7 +55,8 @@ export const insertQuiz = async (req: Request, res: Response) => {
 
 export const editQuiz = async (req: Request, res: Response) => {
    try {
-      const { title, description, id } = req.body;
+      const { id } = req.params;
+      const { title, description } = req.body;
       if (!title || !description || !id) {
          res.status(400).send(
             "Please provide a title, description, and quiz ID."
