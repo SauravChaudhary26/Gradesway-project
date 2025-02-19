@@ -31,7 +31,7 @@ const Dashboard = () => {
       try {
          const teacher_id = localStorage.getItem("teacher_id");
          if (!teacher_id) {
-            navigate("/login"); // Redirect if no teacher_id is found
+            navigate("/"); // Redirect if no teacher_id is found
             return;
          }
 
