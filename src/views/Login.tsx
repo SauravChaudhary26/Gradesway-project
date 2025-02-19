@@ -116,6 +116,12 @@ export function Login() {
                </form>
             </Form>
          </div>
+         <h2 className="mt-6">
+            *Please wait for atleast 30 seconds after pressing submit as the
+            free server of Render.com is extremely slow to start if there are no
+            recent incoming traffic to the site.
+         </h2>
+         <h2>Apologies for the inconvinience.</h2>
       </div>
    );
 }
